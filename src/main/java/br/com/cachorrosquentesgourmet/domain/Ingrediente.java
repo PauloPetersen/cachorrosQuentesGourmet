@@ -1,19 +1,24 @@
 package br.com.cachorrosquentesgourmet.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "pessoa")
+@Table(name = "ingrediente")
 public class Ingrediente {
 
     @Id
     @Column(name = "id_ingrediente")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "O nome do ingrediente não pode estar em branco.")
+    @Size(max = 50, message = "O nome do ingrediente não pode exceder 50 caracteres.")
     @Column(name = "nome_ingrediente", nullable = false)
     private String nome;
-    @Column(name = "valor_ingrediente", nullable = false, precision = 10, scale = 2)
+    @NotNull(message = "O valor do ingrediente não pode ser nulo.")
+    @DecimalMin(value = "0.01", message = "O valor do ingrediente deve ser maior que zero.")
+    @Column(name = "valor_ingrediente", nullable = false, precision = 4, scale = 2)
     private BigDecimal valor;
 
     public Ingrediente() {
