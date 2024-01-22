@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/lanche")
+@RequestMapping("/api/lanche")
 public class LancheController {
+
     @Autowired
     private LancheService lancheService;
 
     @GetMapping
-    public ResponseEntity<List<Lanche>> obterTodos() {
+    public ResponseEntity<List<Lanche>> obterTodosLanches() {
         List<Lanche> lanches = lancheService.obterTodos();
         return new ResponseEntity<>(lanches, HttpStatus.OK);
     }
@@ -35,16 +36,15 @@ public class LancheController {
         return new ResponseEntity<>(novoLanche, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Lanche> atualizarLanche(@PathVariable Long id, @RequestBody Lanche lancheAtualizado) {
-        Lanche lancheAtualizadoResult = lancheService.atualizar(id, lancheAtualizado);
-        return new ResponseEntity<>(lancheAtualizadoResult, HttpStatus.OK);
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Lanche> atualizarLanche(@PathVariable Long id, @RequestBody Lanche lanche) {
+//        Lanche lancheAtualizado = lancheService.atualizar(id, lanche);
+//        return new ResponseEntity<>(lancheAtualizado, HttpStatus.OK);
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluirLanche(@PathVariable Long id) {
         lancheService.excluir(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 }

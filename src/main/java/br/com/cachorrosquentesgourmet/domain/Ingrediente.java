@@ -53,5 +53,6 @@ public class Ingrediente {
     public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
+
 }
 

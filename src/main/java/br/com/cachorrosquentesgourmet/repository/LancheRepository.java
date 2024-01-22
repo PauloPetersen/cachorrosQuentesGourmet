@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LancheRepository extends JpaRepository<Lanche, Long> {
+    boolean existsByNomeLanche(String nome);
 
 }

@@ -2,6 +2,7 @@ package br.com.cachorrosquentesgourmet.domain;
 
 import javax.persistence.*;
 import java.util.List;
+import br.com.cachorrosquentesgourmet.domain.Ingrediente;
 
 @Entity
 @Table(name = "lanche")
@@ -14,8 +15,12 @@ public class Lanche {
     @Column(name = "nome_lanche_lanche")
     private String nomeLanche;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "lanche_ingrediente")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "lanche_ingrediente",
+            joinColumns = @JoinColumn(name = "lanche_id_lanche"),
+            inverseJoinColumns = @JoinColumn(name = "ingredientes_id_ingrediente")
+    )
     private List<Ingrediente> ingredientes;
 
     @Column(name = "customizado_lanche")
@@ -61,5 +66,9 @@ public class Lanche {
 
     public void setCustomizado(boolean customizado) {
         isCustomizado = customizado;
+
+        if (isCustomizado) {
+            this.nomeLanche = "lanche customizado";
+        }
     }
 }
