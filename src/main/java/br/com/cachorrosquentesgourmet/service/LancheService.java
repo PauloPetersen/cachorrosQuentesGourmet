@@ -8,11 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 public class LancheService {
@@ -32,21 +28,6 @@ public class LancheService {
                 .orElseThrow(() -> new EntityNotFoundException("Lanche não encontrado com o ID: " + id));
     }
 
-//    public Lanche criar(Lanche lanche) {
-//        validarLanche(lanche);
-//        lanche.setNomeLanche(padronizarNome(lanche.getNomeLanche()));
-//
-//        List<Ingrediente> ingredientes = new ArrayList<>();
-//        for (Ingrediente ingrediente : lanche.getIngredientes()) {
-//            Ingrediente ingredientePersistido = ingredienteRepository.findById(ingrediente.getId())
-//                    .orElseThrow(() -> new EntityNotFoundException("Ingrediente não encontrado com o ID: " + ingrediente.getId()));
-//            ingredientes.add(ingredientePersistido);
-//        }
-//        lanche.setIngredientes(ingredientes);
-//
-//        return lancheRepository.save(lanche);
-//    }
-
     public Lanche criar(Lanche lanche) {
         validarLanche(lanche);
         lanche.setNomeLanche(padronizarNome(lanche.getNomeLanche()));
@@ -57,20 +38,37 @@ public class LancheService {
         return lancheRepository.save(lanche);
     }
 
-//    public Lanche atualizar(Long id, Lanche lancheAtualizado) {
-//        Lanche lancheExistente = obterPorId(id);
-//        validarLanche(lancheAtualizado);
-//        copiarValores(lancheExistente, lancheAtualizado);
-//        return lancheRepository.save(lancheExistente);
+////    public Lanche atualizar(Long id, Lanche lancheAtualizado) {
+////        Lanche lancheExistente = obterPorId(id);
+////        validarLanche(lancheAtualizado);
+////        associarIngredientes(lancheExistente, lancheAtualizado.getIngredientes());
+////        copiarValores(lancheExistente, lancheAtualizado);
+////        return lancheRepository.save(lancheExistente);
 //    }
 
-    public void excluir(Long id) {
+    public void excluirLanche(Long id) {
         Lanche lanche = lancheRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Lanche não encontrado com o ID: " + id));
 
         lanche.getIngredientes().clear();
 
         lancheRepository.deleteById(id);
+    }
+
+    public Lanche excluirIngrediente(Long idLanche, Long idIngrediente) {
+        Lanche lanche = obterPorId(idLanche);
+
+        if (lanche == null) {
+            throw new EntityNotFoundException("Lanche não encontrado com o ID: " + idLanche);
+        }
+
+        boolean ingredienteRemovido = lanche.getIngredientes().removeIf(ingrediente -> ingrediente.getId().equals(idIngrediente));
+
+        if (!ingredienteRemovido) {
+            throw new IllegalArgumentException("Ingrediente não encontrado no lanche com o ID: " + idLanche);
+        }
+
+        return lancheRepository.save(lanche);
     }
 
     private void validarLanche(Lanche lanche) {
@@ -93,6 +91,24 @@ public class LancheService {
             }
         }
     }
+
+//    private void associarIngredientes(Lanche lancheExistente, List<Ingrediente> novosIngredientes) {
+//        List<Ingrediente> ingredientesPersistidos = new ArrayList<>();
+//
+//        for (Ingrediente ingrediente : novosIngredientes) {
+//            // Busca o ingrediente correspondente na tabela Ingrediente pelo ID
+//            Optional<Ingrediente> ingredientePersistidoOptional = ingredienteRepository.findById(ingrediente.getId());
+//
+//            if (!ingredientePersistidoOptional.isPresent()) {
+//                throw new IllegalArgumentException("Ingrediente não encontrado com o ID: " + ingrediente.getId());
+//            }
+//
+//            Ingrediente ingredientePersistido = ingredientePersistidoOptional.get();
+//            ingredientesPersistidos.add(ingredientePersistido);
+//        }
+//
+//        lancheExistente.setIngredientes(ingredientesPersistidos);
+//    }
 
     private void validarIngredientes(List<Ingrediente> ingredientes) {
         if (ingredientes != null && !ingredientes.isEmpty()) {
@@ -117,11 +133,11 @@ public class LancheService {
         return ingredientesPersistidos;
     }
 
-    private void copiarValores(Lanche destino, Lanche origem) {
-        destino.setNomeLanche(padronizarNome(origem.getNomeLanche()));
-        destino.setIngredientes(origem.getIngredientes());
-        destino.setCustomizado(origem.isCustomizado());
-    }
+//    private void copiarValores(Lanche destino, Lanche origem) {
+//        destino.setNomeLanche(padronizarNome(origem.getNomeLanche()));
+//        destino.setIngredientes(origem.getIngredientes());
+//        destino.setCustomizado(origem.isCustomizado());
+//    }
 
     private String padronizarNome(String nome) {
         if (nome == null) {

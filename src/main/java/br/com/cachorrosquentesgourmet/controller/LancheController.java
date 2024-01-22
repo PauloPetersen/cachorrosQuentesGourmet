@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import javax.persistence.EntityNotFoundException;
 
 import java.util.List;
 
@@ -44,7 +45,19 @@ public class LancheController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluirLanche(@PathVariable Long id) {
-        lancheService.excluir(id);
+        lancheService.excluirLanche(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/{idLanche}/ingredientes/{idIngrediente}")
+    public ResponseEntity<Lanche> excluirIngrediente(@PathVariable Long idLanche, @PathVariable Long idIngrediente) {
+        try {
+            Lanche lancheAtualizado = lancheService.excluirIngrediente(idLanche, idIngrediente);
+            return ResponseEntity.ok(lancheAtualizado);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

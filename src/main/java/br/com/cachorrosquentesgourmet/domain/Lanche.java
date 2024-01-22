@@ -2,7 +2,6 @@ package br.com.cachorrosquentesgourmet.domain;
 
 import javax.persistence.*;
 import java.util.List;
-import br.com.cachorrosquentesgourmet.domain.Ingrediente;
 
 @Entity
 @Table(name = "lanche")
