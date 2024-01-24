@@ -1,10 +1,12 @@
 package br.com.cachorrosquentesgourmet.domain;
 
+import br.com.cachorrosquentesgourmet.interfaces.IProduto;
+
 import javax.persistence.*;
 
 public class ItemPromocao {
 
-    private Produto produto;
+    private IProduto produto;
     private Double porcentagemDesconto;
 
     public ItemPromocao(Produto produto, Double porcentagemDesconto) {
@@ -12,7 +14,7 @@ public class ItemPromocao {
         this.porcentagemDesconto = porcentagemDesconto;
     }
 
-    public Produto getProduto() {
+    public IProduto getProduto() {
         return produto;
     }
 

@@ -18,6 +18,10 @@ public class Lanche extends Produto {
         this.ingredientes = ingredientes;
     }
 
+    public void adicionarIngrediente(Ingrediente ingrediente) {
+        this.ingredientes.add(ingrediente);
+    }
+
     public Double calcularValor() {
         if (!isCalculado()) {
             return getValor();

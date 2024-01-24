@@ -1,5 +1,7 @@
 package br.com.cachorrosquentesgourmet.domain;
 
+import br.com.cachorrosquentesgourmet.interfaces.IProduto;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "PRODUTO")
-public class Produto {
+public class Produto implements IProduto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

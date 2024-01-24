@@ -1,6 +1,7 @@
 package br.com.cachorrosquentesgourmet.service;
 
 import br.com.cachorrosquentesgourmet.domain.ReceitaLanchePadrao;
+import br.com.cachorrosquentesgourmet.interfaces.ReceitaLanchePadraoService;
 import br.com.cachorrosquentesgourmet.repository.ReceitaLanchePadraoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ReceitaLanchePadraoServiceImpl implements ReceitaLanchePadraoService{
+public class ReceitaLanchePadraoServiceImpl implements ReceitaLanchePadraoService {
     @Autowired
     private ReceitaLanchePadraoRepository receitaLanchePadraoRepository;
 

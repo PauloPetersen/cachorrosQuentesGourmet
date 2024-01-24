@@ -1,7 +1,7 @@
 package br.com.cachorrosquentesgourmet.controller;
 
 import br.com.cachorrosquentesgourmet.domain.ReceitaLanchePadrao;
-import br.com.cachorrosquentesgourmet.service.ReceitaLanchePadraoService;
+import br.com.cachorrosquentesgourmet.interfaces.ReceitaLanchePadraoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
