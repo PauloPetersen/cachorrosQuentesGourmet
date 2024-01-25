@@ -1,9 +1,11 @@
 # cachorrosQuentesGourmet
 
 A aplicação roda utilizando o banco H2. <br />
-O link para acessar o banco é: http://localhost:8080/h2/ <br />
-O User é: Admin
-A senha é: 123
+Após o projeto rodar, o link para acessar o banco é: http://localhost:8080/h2/ <br />
+</p>O User é: Admin </p>
+A senha é: 123 </p>
+Driver Class é: org.h2.Driver </p>
+JDBC URL é: jdbc:h2:mem:banco
 
 O projeto foi desenvolvido, inicialmente, orientado a objeto, mas o design inicial apresentou alguns problemas e acabei mudando totalmente a ideia inicial. <br />
 <br /> Decidi por desenhar o projeto orientado a dados, comecei desenhando como eu imaginava ser a estrutura do DB para em seguida começar a programar, vi que fazia sentido e em seguida comecei a desenvolver. <br />
