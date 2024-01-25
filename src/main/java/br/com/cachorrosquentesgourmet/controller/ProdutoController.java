@@ -49,6 +49,12 @@ public class ProdutoController {
         return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
 
+    @GetMapping("/avulsos")
+    public ResponseEntity<List<Produto>> obterProdutosAvulsos() {
+        List<Produto> produtosAvulsos = produtoService.obterProdutosAvulsos();
+        return new ResponseEntity<>(produtosAvulsos, HttpStatus.OK);
+    }
+
     @PostMapping("/atualizar-lanche-customizado")
     public ResponseEntity<LancheCustomizado> atualizarLancheCustomizado(@RequestBody String json) {
         try {

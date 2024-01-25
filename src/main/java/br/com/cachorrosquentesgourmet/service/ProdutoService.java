@@ -51,13 +51,13 @@ public class ProdutoService implements IProdutoService {
         }
     }
 
-//    @Transactional
-//    public Produto atualizarProduto(Long produtoId, Produto novoProduto) {
-//        validarProduto(novoProduto);
-//        Produto produtoExistente = obterProduto(produtoId);
-//        atualizarAtributos(produtoExistente, novoProduto);
-//        return produtoRepository.save(produtoExistente);
-//    }
+    @Transactional
+    public Produto atualizarProduto(Long produtoId, Produto novoProduto) {
+        validarProduto(novoProduto);
+        Produto produtoExistente = obterProduto(produtoId);
+        atualizarAtributos(produtoExistente, novoProduto);
+        return produtoRepository.save(produtoExistente);
+    }
 
 
     @Transactional
@@ -92,12 +92,6 @@ public class ProdutoService implements IProdutoService {
             throw new IllegalArgumentException("O valor do produto deve ser maior que zero.");
         }
     }
-
-//    private void validarValorDoProduto(Double valor) {
-//        if (valor == null || valor <= 0) {
-//            throw new IllegalArgumentException("O valor deve ser especificado e maior que zero.");
-//        }
-//    }
 
     private void atualizarAtributos(Produto destino, Produto origem) {
         // VERIFICAR
@@ -139,4 +133,8 @@ public class ProdutoService implements IProdutoService {
         return lancheCustomizado;
     }
 
+    @Override
+    public List<Produto> obterProdutosAvulsos() {
+        return produtoRepository.findByIsLancheFalseAndIsPromocaoFalseAndIsIngredienteFalseAndIsCalculadoFalse();
+    }
 }

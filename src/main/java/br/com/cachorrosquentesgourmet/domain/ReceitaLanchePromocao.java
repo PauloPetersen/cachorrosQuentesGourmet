@@ -1,5 +1,6 @@
 package br.com.cachorrosquentesgourmet.domain;
 
+
 import javax.persistence.*;
 
 @Entity

@@ -20,7 +20,12 @@ public class ReceitaLanchePadraoServiceImpl implements ReceitaLanchePadraoServic
 
     @Override
     public ReceitaLanchePadrao obterReceitaLanchePadraoPorId(Long id) {
-        return receitaLanchePadraoRepository.findById(id).orElse(null);
+        if (validarId(id)) {
+            return receitaLanchePadraoRepository.findById(id).orElse(null);
+        } else {
+
+            throw new IllegalArgumentException("ID de receita do lanche inválido.");
+        }
     }
 
     @Override
@@ -31,5 +36,11 @@ public class ReceitaLanchePadraoServiceImpl implements ReceitaLanchePadraoServic
     @Override
     public void excluirReceitaLanchePadrao(Long id) {
         receitaLanchePadraoRepository.deleteById(id);
+    }
+
+    private boolean validarId(Long id) {
+
+        return id != null && id > 0;
+
     }
 }

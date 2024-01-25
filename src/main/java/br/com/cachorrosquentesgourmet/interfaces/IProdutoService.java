@@ -16,4 +16,5 @@ public interface IProdutoService {
     void atualizarIngredientes(Produto produtoExistente, List<Ingrediente> novosIngredientes);
     Double calcularValorDoLanchePadrao(LanchePadrao lanchePadrao);
     Double calcularValorDoLancheCustomizado(LancheCustomizado lancheCustomizado);
+    List<Produto> obterProdutosAvulsos();
 }
